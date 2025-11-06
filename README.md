@@ -1,77 +1,179 @@
 # Real-Time Chat Application with Socket.io
 
-This assignment focuses on building a real-time chat application using Socket.io, implementing bidirectional communication between clients and server.
+A full-featured real-time chat application built with React, Node.js, Socket.io, and MongoDB. This application supports user authentication, real-time messaging, typing indicators, and more.
 
-## Assignment Overview
+## Features
 
-You will build a chat application with the following features:
-1. Real-time messaging using Socket.io
-2. User authentication and presence
-3. Multiple chat rooms or private messaging
-4. Real-time notifications
-5. Advanced features like typing indicators and read receipts
+- Real-time messaging using Socket.io
+- User authentication with JWT
+- Typing indicators
+- Message history
+- Online/offline status
+- Responsive design
+
+## Prerequisites
+
+Before running the application, make sure you have the following installed:
+
+- Node.js (v18 or higher)
+- MongoDB (v4.4 or higher)
+- npm or yarn
+- Git
+
+## Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/PLP-MERN-Stack-Development/real-time-communication-with-socket-io-Allan-developer-web.git
+cd real-time-communication-with-socket-io-Allan-developer-web
+```
+
+### 2. Server Setup
+
+1. Navigate to the server directory:
+```bash
+cd server
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Create a `.env` file in the server directory with the following content:
+```
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/chat-app
+JWT_SECRET=your_jwt_secret_here
+```
+
+4. Required Server Dependencies:
+- express
+- socket.io
+- mongoose
+- jsonwebtoken
+- bcryptjs
+- dotenv
+- cors
+
+### 3. Client Setup
+
+1. Open a new terminal and navigate to the client directory:
+```bash
+cd client
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Required Client Dependencies:
+- react
+- react-dom
+- socket.io-client
+- axios
+- @mui/material
+- @emotion/react
+- @emotion/styled
+- @mui/icons-material
+
+## Running the Application
+
+### 1. Start MongoDB
+Make sure MongoDB is running on your system. If it's not running, start it:
+
+```bash
+# Windows
+net start MongoDB
+
+# macOS/Linux
+sudo service mongod start
+```
+
+### 2. Start the Server
+
+1. In the server directory:
+```bash
+cd server
+npm start
+```
+The server will start on http://localhost:5000
+
+### 3. Start the Client
+
+1. In a new terminal, navigate to the client directory:
+```bash
+cd client
+npm run dev
+```
+The client will start on http://localhost:5174 (or another port if 5174 is in use)
 
 ## Project Structure
 
 ```
-socketio-chat/
 ├── client/                 # React front-end
-│   ├── public/             # Static files
-│   ├── src/                # React source code
-│   │   ├── components/     # UI components
-│   │   ├── context/        # React context providers
-│   │   ├── hooks/          # Custom React hooks
-│   │   ├── pages/          # Page components
-│   │   ├── socket/         # Socket.io client setup
-│   │   └── App.jsx         # Main application component
-│   └── package.json        # Client dependencies
+│   ├── src/
+│   │   ├── App.jsx        # Main application component
+│   │   ├── socket.js      # Socket.io client configuration
+│   │   └── main.jsx       # Entry point
+│   └── package.json
 ├── server/                 # Node.js back-end
-│   ├── config/             # Configuration files
-│   ├── controllers/        # Socket event handlers
-│   ├── models/             # Data models
-│   ├── socket/             # Socket.io server setup
-│   ├── utils/              # Utility functions
-│   ├── server.js           # Main server file
-│   └── package.json        # Server dependencies
-└── README.md               # Project documentation
+│   ├── server.js          # Main server file
+│   ├── middleware/        # Authentication middleware
+│   └── package.json
 ```
 
-## Getting Started
+## API Endpoints
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Follow the setup instructions in the `Week5-Assignment.md` file
-4. Complete the tasks outlined in the assignment
+### Authentication
+- POST `/api/auth/register` - Register a new user
+- POST `/api/auth/login` - Login user
 
-## Files Included
+### Messages
+- GET `/api/messages` - Get chat history
+- POST `/api/messages` - Send a new message
 
-- `Week5-Assignment.md`: Detailed assignment instructions
-- Starter code for both client and server:
-  - Basic project structure
-  - Socket.io configuration templates
-  - Sample components for the chat interface
+## Socket.io Events
 
-## Requirements
+### Client Events
+- `join` - Join the chat room
+- `message` - Send a message
+- `typing` - Indicate user is typing
+- `stop typing` - Indicate user stopped typing
 
-- Node.js (v18 or higher)
-- npm or yarn
-- Modern web browser
-- Basic understanding of React and Express
+### Server Events
+- `message` - Receive a message
+- `userJoined` - New user joined notification
+- `typing` - User is typing notification
+- `stop typing` - User stopped typing notification
 
-## Submission
+## Troubleshooting
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+1. **Server Connection Issues**
+   - Check if MongoDB is running
+   - Verify the MongoDB connection string in `.env`
+   - Ensure port 5000 is not in use
 
-1. Complete both the client and server portions of the application
-2. Implement the core chat functionality
-3. Add at least 3 advanced features
-4. Document your setup process and features in the README.md
-5. Include screenshots or GIFs of your working application
-6. Optional: Deploy your application and add the URLs to your README.md
+2. **Client Connection Issues**
+   - Check if the server is running
+   - Verify the Socket.io connection URL in `socket.js`
+   - Check browser console for errors
 
-## Resources
+3. **Authentication Issues**
+   - Ensure JWT_SECRET is set in `.env`
+   - Check if the token is being sent in requests
+   - Verify token expiration
 
-- [Socket.io Documentation](https://socket.io/docs/v4/)
-- [React Documentation](https://react.dev/)
-- [Express.js Documentation](https://expressjs.com/)
-- [Building a Chat Application with Socket.io](https://socket.io/get-started/chat) 
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request 
